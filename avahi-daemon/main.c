@@ -376,20 +376,22 @@ static void server_callback(AvahiServer *s, AvahiServerState state, void *userda
             break;
 
         case AVAHI_SERVER_COLLISION: {
-            char *n;
+            avahi_log_warn("Host name conflict detected. Will ignore.");
 
-            static_service_remove_from_server();
-            static_hosts_remove_from_server();
-            remove_dns_server_entry_groups();
+            // char *n;
 
-            n = avahi_alternative_host_name(avahi_server_get_host_name(s));
+            // static_service_remove_from_server();
+            // static_hosts_remove_from_server();
+            // remove_dns_server_entry_groups();
 
-            avahi_log_warn("Host name conflict, retrying with %s", n);
-            sd_notifyf(0, "STATUS=Host name conflict, retrying with %s", n);
-            avahi_set_proc_title(argv0, "%s: collision [%s]", argv0, n);
+            // n = avahi_alternative_host_name(avahi_server_get_host_name(s));
 
-            avahi_server_set_host_name(s, n);
-            avahi_free(n);
+            // avahi_log_warn("Host name conflict, retrying with %s", n);
+            // sd_notifyf(0, "STATUS=Host name conflict, retrying with %s", n);
+            // avahi_set_proc_title(argv0, "%s: collision [%s]", argv0, n);
+
+            // avahi_server_set_host_name(s, n);
+            // avahi_free(n);
 
             break;
         }
